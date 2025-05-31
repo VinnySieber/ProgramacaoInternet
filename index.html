@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificação de Triângulo e IMC</title>
+    <style>
+        body {
+            
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(to bottom, #ccc, #535353);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px; /* Espaço entre as seções */
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label, input {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .resultado {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e1f7d5;
+            border: 1px solid #4CAF50;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Verificação de Triângulo -->
+    <div class="container">
+        <h1>Verificador de Triângulo</h1>
+
+        <label for="ladoX">Digite o valor de X:</label>
+        <input type="number" id="ladoX" placeholder="Valor de X" step="any">
+
+        <label for="ladoY">Digite o valor de Y:</label>
+        <input type="number" id="ladoY" placeholder="Valor de Y" step="any">
+
+        <label for="ladoZ">Digite o valor de Z:</label>
+        <input type="number" id="ladoZ" placeholder="Valor de Z" step="any">
+
+        <button onclick="verificarTriangulo()">Verificar Triângulo</button>
+
+        <div id="resultadoTriangulo" class="resultado"></div>
+    </div>
+
+    <br><br><br><br>
+
+    <!-- Calculadora de IMC -->
+    <div class="container">
+        <h1>Calculadora de IMC</h1>
+
+        <label for="peso">Peso (kg):</label>
+        <input type="number" id="peso" placeholder="Digite seu peso" step="any">
+
+        <label for="altura">Altura (m):</label>
+        <input type="number" id="altura" placeholder="Digite sua altura" step="any">
+
+        <button onclick="calcularIMC()">Calcular IMC</button>
+
+        <div id="resultadoIMC" class="resultado"></div>
+    </div>
+
+    <script>
+        function verificarTriangulo() {
+            // Pegando os valores dos inputs
+            const x = parseFloat(document.getElementById('ladoX').value);
+            const y = parseFloat(document.getElementById('ladoY').value);
+            const z = parseFloat(document.getElementById('ladoZ').value);
+            
+            // Verifica se os lados formam um triângulo (regra da desigualdade triangular)
+            let resultado = '';
+            if (x < y + z && y < x + z && z < x + y) {
+                // Verifica o tipo do triângulo
+                if (x === y && y === z) {
+                    resultado = "Triângulo equilátero";
+                } else if (x === y || x === z || y === z) {
+                    resultado = "Triângulo isósceles";
+                } else {
+                    resultado = "Triângulo escaleno";
+                }
+            } else {
+                resultado = "Os valores fornecidos não formam um triângulo";
+            }
+            
+            // Exibe o resultado abaixo da tabela de triângulo
+            document.getElementById('resultadoTriangulo').innerText = resultado;
+        }
+
+        function calcularIMC() {
+            // Pegando os valores de peso e altura
+            const peso = parseFloat(document.getElementById('peso').value);
+            const altura = parseFloat(document.getElementById('altura').value);
+            
+            // Validando se os campos estão preenchidos
+            if (isNaN(peso) || isNaN(altura) || peso <= 0 || altura <= 0) {
+                alert("Por favor, insira valores válidos para peso e altura.");
+                return;
+            }
+            
+            // Calculando o IMC
+            const imc = peso / (altura * altura);
+            
+            // Definindo a classificação do IMC
+            let classificacao = "";
+            if (imc < 18.5) {
+                classificacao = "Abaixo do peso";
+            } else if (imc >= 18.5 && imc < 24.9) {
+                classificacao = "Peso normal";
+            } else if (imc >= 25 && imc < 29.9) {
+                classificacao = "Sobrepeso";
+            } else if (imc >= 30 && imc < 34.9) {
+                classificacao = "Obesidade grau 1";
+            } else if (imc >= 35 && imc < 39.9) {
+                classificacao = "Obesidade grau 2";
+            } else {
+                classificacao = "Obesidade grau 3";
+            }
+
+            // Exibindo o resultado abaixo da tabela IMC
+            const resultadoDiv = document.getElementById('resultadoIMC');
+            resultadoDiv.style.display = 'block';
+            resultadoDiv.innerHTML = `Seu IMC é: ${imc.toFixed(2)}<br>Classificação: ${classificacao}`;
+        }
+    </script>
+
+</body>
+</html>
+<br><br><br><br><br><br><br><br><br><br>
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Impostos - DETRAN</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label, input {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .resultado {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e1f7d5;
+            border: 1px solid #4CAF50;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Calculadora de Impostos - DETRAN</h1>
+
+        <label for="ano">Ano de Fabricação do Carro:</label>
+        <input type="number" id="ano" placeholder="Digite o ano de fabricação" min="1900" max="2100">
+
+        <label for="valor">Valor de Tabela do Carro (R$):</label>
+        <input type="text" id="valor" placeholder="Digite o valor de tabela" oninput="formatarValor(event)">
+
+        <button onclick="calcularImposto()">Calcular Imposto</button>
+
+        <div id="resultado" class="resultado"></div>
+    </div>
+
+    <script>
+        // Função para formatar número com ponto como separador de milhar
+        function formatarNumero(numero) {
+            return numero.toLocaleString('pt-BR'); // Formata o número com ponto como separador de milhar
+        }
+
+        // Função para formatar o valor digitado enquanto o usuário digita
+        function formatarValor(event) {
+            let valor = event.target.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+            if (valor.length > 0) {
+                // Adiciona a formatação de separador de milhar
+                valor = formatarNumero(parseInt(valor));
+                event.target.value = valor; // Atualiza o campo com o valor formatado
+            }
+        }
+
+        function calcularImposto() {
+            // Pegando os valores de ano e valor
+            const ano = parseInt(document.getElementById('ano').value);
+            let valor = document.getElementById('valor').value.replace(/\D/g, ''); // Remove tudo que não for número
+            valor = parseFloat(valor);
+
+            // Validando os inputs
+            if (isNaN(ano) || isNaN(valor) || ano <= 0 || valor <= 0) {
+                alert("Por favor, insira valores válidos para o ano e o valor de tabela.");
+                return;
+            }
+
+            // Definindo a taxa de imposto de acordo com o ano
+            let taxa = 0;
+
+            if (ano < 1990) {
+                taxa = 1; // 1% para carros fabricados antes de 1990
+            } else {
+                taxa = 1.5; // 1.5% para carros fabricados a partir de 1990
+            }
+
+            // Calculando o imposto a ser pago (percentual do valor)
+            const imposto = valor * (taxa / 100);
+
+            // Exibindo o resultado com formatação
+            document.getElementById('resultado').innerHTML = `Imposto a ser pago: R$ ${formatarNumero(imposto.toFixed(2))}`;
+        }
+    </script>
+
+</body>
+</html>
+<br><br><br><br><br><br><br><br><br><br>
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Aumento Salarial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label, input, select {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+            width: 100%;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .resultado {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e1f7d5;
+            border: 1px solid #4CAF50;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Calculadora de Aumento Salarial</h1>
+
+        <label for="salario">Salário Atual (R$):</label>
+        <input type="number" id="salario" placeholder="Digite o salário atual" step="any">
+
+        <label for="cargo">Cargo:</label>
+        <select id="cargo">
+            <option value="">Selecione o cargo</option>
+            <option value="101">Gerente</option>
+            <option value="102">Engenheiro</option>
+            <option value="103">Técnico</option>
+            <option value="outro">Outro</option>
+        </select>
+
+        <button onclick="calcularSalario()">Calcular Novo Salário</button>
+
+        <div id="resultadoSalario" class="resultado"></div>
+    </div>
+
+    <script>
+        function calcularSalario() {
+            const salarioAtual = parseFloat(document.getElementById('salario').value);
+            const cargo = document.getElementById('cargo').value;
+            let percentual = 0;
+
+            if (isNaN(salarioAtual) || salarioAtual <= 0) {
+                alert("Por favor, insira um salário válido.");
+                return;
+            }
+
+            switch (cargo) {
+                case "101": // Gerente
+                    percentual = 10;
+                    break;
+                case "102": // Engenheiro
+                    percentual = 20;
+                    break;
+                case "103": // Técnico
+                    percentual = 30;
+                    break;
+                case "outro":
+                    percentual = 40;
+                    break;
+                default:
+                    alert("Por favor, selecione um cargo.");
+                    return;
+            }
+
+            const aumento = salarioAtual * (percentual / 100);
+            const novoSalario = salarioAtual + aumento;
+
+            document.getElementById('resultadoSalario').innerHTML = `
+                Salário Antigo: R$ ${salarioAtual.toFixed(2)}<br>
+                Percentual de Aumento: ${percentual}%<br>
+                Aumento: R$ ${aumento.toFixed(2)}<br>
+                Novo Salário: R$ ${novoSalario.toFixed(2)}
+            `;
+        }
+    </script>
+
+</body>
+</html>
+ <br> <br> <br> <br> <br> <br> <br> <br> <br>
+
+
+ <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Crédito Bancário</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef2f7;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 450px;
+            width: 100%;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label, input, button {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        input {
+            padding: 8px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .resultado {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+            color: #155724;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Calculadora de Crédito Bancário</h2>
+
+    <label for="saldoMedio">Saldo Médio do Último Ano (R$):</label>
+    <input type="number" id="saldoMedio" placeholder="Digite o saldo médio" step="any">
+
+    <button onclick="calcularCredito()">Calcular Crédito</button>
+
+    <div id="resultadoCredito" class="resultado"></div>
+</div>
+
+<script>
+    function calcularCredito() {
+        const saldo = parseFloat(document.getElementById('saldoMedio').value);
+        const resultado = document.getElementById('resultadoCredito');
+        let percentual = 0;
+        let credito = 0;
+
+        if (isNaN(saldo) || saldo < 0) {
+            resultado.innerHTML = "Por favor, insira um saldo válido.";
+            resultado.style.backgroundColor = "#f8d7da";
+            resultado.style.borderLeft = "5px solid #dc3545";
+            resultado.style.color = "#721c24";
+            return;
+        }
+
+        if (saldo <= 200) {
+            percentual = 0;
+        } else if (saldo <= 400) {
+            percentual = 20;
+        } else if (saldo <= 600) {
+            percentual = 30;
+        } else {
+            percentual = 40;
+        }
+
+        credito = saldo * (percentual / 100);
+
+        resultado.style.backgroundColor = "#d4edda";
+        resultado.style.borderLeft = "5px solid #28a745";
+        resultado.style.color = "#155724";
+
+        resultado.innerHTML = `
+            Saldo Médio: R$ ${saldo.toFixed(2)}<br>
+            Percentual de Crédito: ${percentual}%<br>
+            Valor do Crédito Concedido: R$ ${credito.toFixed(2)}
+        `;
+    }
+</script>
+
+</body>
+</html>
+<br><br><br><br><br><br><br><br><br>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Lanchonete - Pedido</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      border: 1px solid #999;
+      padding: 6px;
+      font-size: 14px;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    #resultado {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Cardápio</h2>
+    <table>
+      <tr><th>Cód</th><th>Produto</th><th>Preço (R$)</th></tr>
+      <tr><td>101</td><td>Cachorro Quente</td><td>11,00</td></tr>
+      <tr><td>102</td><td>Bauru</td><td>8,50</td></tr>
+      <tr><td>103</td><td>Misto Quente</td><td>8,00</td></tr>
+      <tr><td>104</td><td>Hambúrguer</td><td>9,00</td></tr>
+      <tr><td>105</td><td>Cheeseburger</td><td>10,00</td></tr>
+      <tr><td>106</td><td>Refrigerante</td><td>4,50</td></tr>
+    </table>
+
+    <label for="codigo">Código do Produto:</label>
+    <input type="number" id="codigo">
+
+    <label for="quantidade">Quantidade:</label>
+    <input type="number" id="quantidade">
+
+    <button onclick="calcular()">Calcular Total</button>
+
+    <p id="resultadoCardapio"></p>
+  </div>
+
+  <script>
+    function calcular() {
+      const codigo = parseInt(document.getElementById('codigo').value);
+      const quantidade = parseInt(document.getElementById('quantidade').value);
+      
+      const cardapio = {
+        101: { nome: 'Cachorro Quente', preco: 11.00 },
+        102: { nome: 'Bauru', preco: 8.50 },
+        103: { nome: 'Misto Quente', preco: 8.00 },
+        104: { nome: 'Hambúrguer', preco: 9.00 },
+        105: { nome: 'Cheeseburger', preco: 10.00 },
+        106: { nome: 'Refrigerante', preco: 4.50 }
+      };
+
+      const item = cardapio[codigo];
+      const resultado = document.getElementById('resultadoCardapio');
+
+
+      if (item && quantidade > 0) {
+        const total = item.preco * quantidade;
+        resultado.innerHTML = `Produto: ${item.nome}<br>Quantidade: ${quantidade}<br>Total a pagar: R$ ${total.toFixed(2)}`;
+      } else {
+        resultado.innerHTML = "<span style='color:red;'>Código inválido ou quantidade incorreta.</span>";
+      }
+    }
+  </script>
+
+</body>
+</html>
+<br><br><br><br><br><br><br><br><br><br>
+
+<!DOCTYPE html> 
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sistema de Vendas</title>
+  <style>
+    
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f9;
+      color: #333;
+      text-align: center; /* centraliza todo conteúdo */
+    }
+    h2 {
+      color: #0056b3;
+    }
+    label, select, input {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+      text-align: left;
+    }
+    input[type="number"], select {
+      width: 200px;
+      padding: 5px;
+      font-size: 1rem;
+      margin: 0 auto;
+      display: block;
+    }
+    button {
+      margin-top: 15px;
+      padding: 7px 12px; /* diminui o tamanho do botão */
+      background-color: #0056b3;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button:hover {
+      background-color: #003d7a;
+    }
+    #resultadoVendas {
+      margin-top: 20px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    table.form-table {
+      margin: 0 auto 15px auto;
+      border-collapse: separate;
+      border-spacing: 10px 15px;
+      width: 200px;
+      background-color: white;
+    }
+  </style>
+</head>
+<body>
+  <h2>Sistema de Vendas</h2>
+
+  <table class="form-table">
+    <tr>
+      <td><label for="preco">Preço normal do produto (R$):</label></td>
+      <td><input type="number" id="preco" min="0" step="0.01" placeholder="Ex: 150.00" /></td>
+    </tr>
+    <tr>
+      <td><label for="condicao">Condição de pagamento:</label></td>
+      <td>
+        <select id="condicao">
+          <option value="">-- Escolha --</option>
+          <option value="a">À vista em dinheiro ou cheque (10% de desconto)</option>
+          <option value="b">À vista no cartão de crédito (15% de desconto)</option>
+          <option value="c">Em duas vezes, preço normal sem juros</option>
+          <option value="d">Em duas vezes, preço normal mais juros de 10%</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="text-align:center;">
+        <button onclick="calcularPagamento()">Calcular valor a pagar</button>
+      </td>
+    </tr>
+  </table>
+
+  <div id="resultadoVendas"></div>
+
+  <script>
+    function calcularPagamento() {
+      const preco = parseFloat(document.getElementById('preco').value);
+      const condicao = document.getElementById('condicao').value;
+      const resultado = document.getElementById('resultadoVendas');
+
+      if (isNaN(preco) || preco <= 0) {
+        resultado.textContent = 'Por favor, informe um preço válido maior que zero.';
+        return;
+      }
+      if (!condicao) {
+        resultado.textContent = 'Por favor, escolha uma condição de pagamento.';
+        return;
+      }
+
+      let valorFinal;
+      let mensagem;
+
+      switch(condicao) {
+        case 'a':
+          valorFinal = preco * 0.90; // 10% desconto
+          mensagem = `Pagamento à vista em dinheiro ou cheque: 10% de desconto aplicado.`;
+          break;
+        case 'b':
+          valorFinal = preco * 0.85; // 15% desconto
+          mensagem = `Pagamento à vista no cartão de crédito: 15% de desconto aplicado.`;
+          break;
+        case 'c':
+          valorFinal = preco; // preço normal sem juros
+          mensagem = `Pagamento em duas vezes: preço normal sem juros.`;
+          break;
+        case 'd':
+          valorFinal = preco * 1.10; // 10% juros
+          mensagem = `Pagamento em duas vezes: preço normal com 10% de juros.`;
+          break;
+        default:
+          resultado.textContent = 'Condição de pagamento inválida.';
+          return;
+      }
+
+      resultado.innerHTML = `<strong>${mensagem}</strong><br />Valor total a pagar: R$ ${valorFinal.toFixed(2)}`;
+    }
+  </script>
+</body>
+</html>
+<br><br><br><br><br><br><br><br><br><br>
+<!-- Sistema de Pagamento de Professores -->
+<div class="card">
+  <h1>Pagamento de Professores</h1>
+
+  <label for="nivelProfessor">Nível do Professor:</label>
+  <select id="nivelProfessor">
+    <option value="">Selecione o nível</option>
+    <option value="1">Nível 1 - R$12/h</option>
+    <option value="2">Nível 2 - R$17/h</option>
+    <option value="3">Nível 3 - R$25/h</option>
+  </select>
+
+  <label for="qtdHoras">Horas/Aula por Semana:</label>
+  <input type="number" id="qtdHoras" placeholder="Digite as horas por semana" step="any" />
+
+  <button onclick="calcularSalarioProfessor()">Calcular Salário</button>
+
+  <div id="resultadoPagamento" class="resultado"></div>
+</div>
+
+<script>
+function calcularSalarioProfessor() {
+  const nivel = document.getElementById("nivelProfessor").value;
+  const horasSemana = parseFloat(document.getElementById("qtdHoras").value);
+  let valorHora = 0;
+
+  if (!nivel || isNaN(horasSemana) || horasSemana <= 0) {
+    alert("Preencha todos os campos corretamente.");
+    return;
+  }
+
+  switch (nivel) {
+    case "1":
+      valorHora = 12;
+      break;
+    case "2":
+      valorHora = 17;
+      break;
+    case "3":
+      valorHora = 25;
+      break;
+    default:
+      alert("Nível inválido.");
+      return;
+  }
+
+  const salario = valorHora * horasSemana * 4.5;
+  document.getElementById("resultadoPagamento").innerHTML = `
+    Nível Selecionado: ${nivel}<br>
+    Valor Hora/Aula: R$ ${valorHora.toFixed(2)}<br>
+    Horas por Semana: ${horasSemana}<br>
+    <strong>Salário Mensal: R$ ${salario.toFixed(2)}</strong>
+  `;
+}
+</script>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
