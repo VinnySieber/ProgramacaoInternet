@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pedido de pizza</title>
+</head>
+<body>
+
+  <h1>Fazer pedido</h1>
+
+  <!-- Entradas para os sabores -->
+  <label for="sabor1">Digite o sabor 1:</label>
+  <input type="text" id="sabor1"><br><br>
+
+  <label for="sabor2">Digite o sabor 2:</label>
+  <input type="text" id="sabor2"><br><br>
+
+  <label for="sabor3">Digite o sabor 3:</label>
+  <input type="text" id="sabor3"><br><br>
+
+  <label for="sabor4">Digite o sabor 4:</label>
+  <input type="text" id="sabor4"><br><br>
+
+  <!-- Entrada para a quantidade de refrigerantes -->
+  <label for="refri">Quantos refrigerantes voce quer?</label>
+  <input type="number" id="refri"><br><br>
+
+  <!-- Botao para calcular o pedido -->
+  <button onclick="calcularPedido()">Finalizar pedido</button>
+
+  <!-- Onde o resultado sera exibido -->
+  <p id="resultado"></p>
+
+  <!-- Ligacao com o arquivo JavaScript -->
+  <script src="script.js"></script>
+
+</body>
+</html>
